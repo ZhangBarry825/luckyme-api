@@ -44,7 +44,14 @@ class User extends Base
             return $this->errorReturn($this->userValidate->getError());
         }
     }
-    public function updatepwd(){
+    public function logout(){
+        unsetUser();
+        return $this->successReturn();
+    }
+    public function updatePwd(){
+        $this->needUser=true;
+        parent::__construct();
+
         if(isset($_POST['old_password'])){
             $rec = $_POST;
         }else{
@@ -70,15 +77,17 @@ class User extends Base
             return $this->errorReturn($this->userValidate->getError());
         }
     }
-    public function logout(){
-        unsetUser();
-        return $this->successReturn();
-    }
     public function info(){
+        $this->needUser=true;
+        parent::__construct();
+
         if(getUser()){
             return $this->successReturn('success',getUser());
         }else{
             return $this->errorReturn('获取信息失败');
         }
     }
+//    public function updateInfo(){
+//
+//    }
 }

@@ -21,6 +21,7 @@ class UserValidate extends Validate
     ];
     protected $scene = [
         'login' => ['username','password'],
-        'updatePwd'=>['new_password','old_password']
+        'updatePwd'=>['new_password','old_password'],
+        'updateInfo'=>[]
     ];
 }
