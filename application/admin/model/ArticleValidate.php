@@ -27,11 +27,11 @@ class ArticleValidate extends Validate
         ['key','require','key必须'],
     ];
     protected $scene = [
-        'create' => ['title','type','status','create_time','description','content'],
-        'update'  =>  ['id','title','type','status','update_time','description','content'],
-        'delete'  =>  ['id'],
-        'lists'  =>['page_num','page_size'],
-        'detail'  =>['id'],
-        'search' =>['key','page_num','page_size']
+        'createArticle' => ['title','type','status','create_time','description','content'],
+        'updateArticle'  =>  ['id','title','type','status','update_time','description','content'],
+        'deleteArticle'  =>  ['id'],
+        'listArticle'  =>['page_num','page_size'],
+        'detailArticle'  =>['id'],
+        'searchArticle' =>['key','page_num','page_size']
     ];
 }

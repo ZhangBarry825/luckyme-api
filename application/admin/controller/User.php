@@ -33,7 +33,7 @@ class User extends Base
         $res = $this->userValidate->check($rec, '', 'login');
         if ($res) {
             $rec['password']=md5($rec['password']);
-            $result=$this->user->where('username','=',$rec['username'])->where('password','=',$rec['password'])->field('name,roles')->find();
+            $result=$this->user->where('username','=',$rec['username'])->where('password','=',$rec['password'])->field('username,name,roles')->find();
             if($result){
                 session('user',$result);
                 return $this->successReturn("success",$result);
@@ -61,10 +61,10 @@ class User extends Base
         $res = $this->userValidate->check($rec, '', 'updatePwd');
         if($res){
             $rec['old_password']=md5($rec['old_password']);
-            $result=$this->user->where('username','=','admin')->where('password','=',$rec['old_password'])->field('name,roles')->find();
+            $result=$this->user->where('username','=',getUser()['username'])->where('password','=',$rec['old_password'])->field('name,roles')->find();
             if($result){
                 $data['password']=md5($rec['new_password']);
-                $result2=$this->user->where('username','=','admin')->update($data);
+                $result2=$this->user->where('username','=',getUser()['username'])->update($data);
                 if($result2){
                     return $this->successReturn('success');
                 }else{
@@ -87,7 +87,21 @@ class User extends Base
             return $this->errorReturn('获取信息失败');
         }
     }
-//    public function updateInfo(){
-//
-//    }
+    public function updateInfo(){
+        $this->needUser=true;
+        parent::__construct();
+
+        $rec = $_POST;
+        $res = $this->userValidate->check($rec, '', 'updateInfo');
+        if($res){
+            $result=$this->user->where('username','=',getUser()['username'])->field('name,roles')->update($rec);
+            if($result){
+                return $this->successReturn();
+            }else{
+                return $this->errorReturn($this->user->getError());
+            }
+        }else{
+            return $this->errorReturn($this->userValidate->getError());
+        }
+    }
 }
