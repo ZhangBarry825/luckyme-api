@@ -33,7 +33,7 @@ class User extends Base
         $res = $this->userValidate->check($rec, '', 'login');
         if ($res) {
             $rec['password']=md5($rec['password']);
-            $result=$this->user->where('username','=',$rec['username'])->where('password','=',$rec['password'])->field('username,name,roles')->find();
+            $result=$this->user->where('username','=',$rec['username'])->where('password','=',$rec['password'])->field('username,name,roles,cover,description,address,email')->find();
             if($result){
                 session('user',$result);
                 return $this->successReturn("success",$result);
