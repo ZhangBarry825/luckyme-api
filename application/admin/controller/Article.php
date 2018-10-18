@@ -26,13 +26,14 @@ class Article extends Base
     }
 
     public function index(){
-        return 'admin/article/index';
+        return $this->successReturn('admin/article/index');
     }
+
     public function createArticle(){
         $rec=$_POST;
         $res=$this->articleValidate->check($rec,'','createArticle');
         if($res){
-            $res['update_time']=$res['create_time'];
+            $rec['update_time']=$rec['create_time'];
             $result=$this->article->insert($rec);
             if($result){
                 return $this->successReturn();
@@ -51,6 +52,8 @@ class Article extends Base
             $result=$this->article->where('id','=',$rec['id'])->update($rec);
             if($result){
                 return $this->successReturn();
+            }else if(empty($result)){
+                return $this->successReturn();
             }else{
                 return $this->errorReturn($this->article->getError());
             }
@@ -67,6 +70,8 @@ class Article extends Base
             $result=$this->article->where($map)->delete();
             if($result){
                 return $this->successReturn();
+            }else if(empty($result)){
+                return $this->errorReturn('id不存在');
             }else{
                 return $this->errorReturn($this->article->getError());
             }
@@ -107,7 +112,7 @@ class Article extends Base
                 $result=$this->article->where('status','=',$rec['status'])->where('type','=',$rec['type'])->page($rec['page_num'],$rec['page_size'])->order('update_time desc')->select();
             }
             if(!isset($rec['type']) && !isset($rec['status'])){
-                $result=$this->article->where('')->page($rec['page_num'],$rec['page_size'])->order('update_time desc')->select();
+                $result=$this->article->page($rec['page_num'],$rec['page_size'])->order('update_time desc')->select();
             }
 
             if($result){
