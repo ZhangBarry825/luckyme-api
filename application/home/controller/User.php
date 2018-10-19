@@ -25,8 +25,9 @@ class User extends Base
     }
 
     public function info(){
-        if(getUser()){
-            return $this->successReturn('success',getUser());
+        $result=$this->user->find();
+        if($result){
+            return $this->successReturn('success',$result);
         }else{
             return $this->errorReturn('获取信息失败');
         }
