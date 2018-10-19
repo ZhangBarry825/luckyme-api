@@ -6,6 +6,6 @@ class Index
 {
     public function index()
     {
-        return 'mypro';
+        return 'welcome to luckyme';
     }
 }
