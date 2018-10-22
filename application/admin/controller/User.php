@@ -33,7 +33,7 @@ class User extends Base
         $res = $this->userValidate->check($rec, '', 'login');
         if ($res) {
             $rec['password']=md5($rec['password']);
-            $result=$this->user->where('username','=',$rec['username'])->where('password','=',$rec['password'])->field('username,name,roles,cover,description,address,email')->find();
+            $result=$this->user->where('username','=',$rec['username'])->where('password','=',$rec['password'])->field('username,name,roles,avatar,description,address,email')->find();
             if($result){
                 session('user',$result);
                 return $this->successReturn("success",$result);
@@ -94,7 +94,7 @@ class User extends Base
         $rec = $_POST;
         $res = $this->userValidate->check($rec, '', 'updateInfo');
         if($res){
-            $result=$this->user->where('username','=',getUser()['username'])->field('name,roles')->update($rec);
+            $result=$this->user->where('username','=',getUser()['username'])->update($rec);
             if($result){
                 return $this->successReturn();
             }else{
