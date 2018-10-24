@@ -25,7 +25,7 @@ class User extends Base
     }
 
     public function info(){
-        $result=$this->user->find();
+        $result=$this->user->field('password',true)->find();
         if($result){
             return $this->successReturn('success',$result);
         }else{
