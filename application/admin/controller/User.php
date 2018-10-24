@@ -97,6 +97,8 @@ class User extends Base
             $result=$this->user->where('username','=',getUser()['username'])->update($rec);
             if($result){
                 return $this->successReturn();
+            }else if(empty($result)){
+                return $this->successReturn();
             }else{
                 return $this->errorReturn($this->user->getError());
             }
