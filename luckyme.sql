@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50637
 File Encoding         : 65001
 
-Date: 2018-10-19 15:58:01
+Date: 2018-10-25 11:04:44
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -72,7 +72,7 @@ CREATE TABLE `user` (
   `name` varchar(255) DEFAULT NULL COMMENT '昵称',
   `create_time` int(11) DEFAULT NULL,
   `roles` varchar(255) DEFAULT NULL COMMENT '身份类型',
-  `cover` varchar(255) DEFAULT NULL COMMENT '头像',
+  `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
   `description` varchar(255) DEFAULT NULL COMMENT '描述',
   `address` varchar(255) DEFAULT NULL COMMENT '地址',
   `email` varchar(255) DEFAULT NULL COMMENT '邮箱地址',
@@ -82,4 +82,4 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '大番薯1', null, 'admin', null, null, null, null);
+INSERT INTO `user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '大番薯6', '1540396800', 'admin', 'http://luckyme.barry.umdev.cn/static/uploads/20181025/57dffcd7622c24c547bbc5da082fb545.jpg', '90后程序员', '火星球', '530027054@qq.com');

@@ -81,8 +81,9 @@ class User extends Base
         $this->needUser=true;
         parent::__construct();
 
-        if(getUser()){
-            return $this->successReturn('success',getUser());
+        $result=$this->user->field('password',true)->find();
+        if($result){
+            return $this->successReturn('success',$result);
         }else{
             return $this->errorReturn('获取信息失败');
         }
@@ -91,11 +92,16 @@ class User extends Base
         $this->needUser=true;
         parent::__construct();
 
-        $rec = $_POST;
+        if(isset($_POST['name'])){
+            $rec = $_POST;
+        }else{
+            $rec=json_decode(file_get_contents('php://input'),true);
+        }
         $res = $this->userValidate->check($rec, '', 'updateInfo');
         if($res){
             $result=$this->user->where('username','=',getUser()['username'])->update($rec);
             if($result){
+
                 return $this->successReturn();
             }else if(empty($result)){
                 return $this->successReturn();
