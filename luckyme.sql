@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50637
 File Encoding         : 65001
 
-Date: 2018-10-25 11:04:44
+Date: 2018-11-01 17:47:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,20 +29,22 @@ CREATE TABLE `article` (
   `type` varchar(255) DEFAULT NULL COMMENT '文章分类',
   `create_time` int(11) DEFAULT NULL COMMENT '文章创建时间',
   `update_time` int(11) DEFAULT NULL COMMENT '文章更新时间',
+  `looked` int(11) unsigned zerofill NOT NULL DEFAULT '00000000000' COMMENT '浏览次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES ('1', '文章测试标题1', 'normal', null, '摘要', '内容', '心路历程', '123123', '123123');
-INSERT INTO `article` VALUES ('7', '文章测试标题2', 'normal', null, '摘要', '内容', '心路历程', '123123', null);
-INSERT INTO `article` VALUES ('8', '文章测试标题3', 'normal', null, '摘要', '中国', '心路历程', '123123', null);
-INSERT INTO `article` VALUES ('9', '文章测试标题4', 'normal', null, '摘要', '内容', '心路历程', '123123', null);
-INSERT INTO `article` VALUES ('10', '文章测试标题5', 'normal', null, '摘要', '内容', '心路历程', '123123', null);
-INSERT INTO `article` VALUES ('11', '文章测试标题6', 'normal', null, '摘要', '内容', '心路历程', '123123', null);
-INSERT INTO `article` VALUES ('12', '文章测试标题7', 'normal', null, '摘要', '内容', '心路历程', '123123', null);
-INSERT INTO `article` VALUES ('13', '文章测试标题8', 'normal', null, '摘要', '内容', '心路历程', '123123', null);
+INSERT INTO `article` VALUES ('1', '文章测试标题1', 'normal', null, '摘要', '内容', '心路历程', '123123', '123123', '00000000000');
+INSERT INTO `article` VALUES ('7', '文章测试标题2', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
+INSERT INTO `article` VALUES ('8', '文章测试标题3', 'normal', null, '摘要', '中国', '心路历程', '123123', null, '00000000000');
+INSERT INTO `article` VALUES ('9', '文章测试标题4', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
+INSERT INTO `article` VALUES ('10', '文章测试标题5', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000002');
+INSERT INTO `article` VALUES ('11', '文章测试标题6', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
+INSERT INTO `article` VALUES ('12', '文章测试标题7', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
+INSERT INTO `article` VALUES ('13', '文章测试标题8', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
+INSERT INTO `article` VALUES ('14', '文章测试标题', 'normal', 'https://www.baidu.com/s?wd=%E4%BB%8A%E6%97%A5%E6%96%B0%E9%B2%9C%E4%BA%8B&tn=SE_PclogoS_8whnvm25&sa=ire_dl_gh_logo&rsv_dl=igh_logo_pcs', '摘要', '内容', '心路历程', '123123', '123123', '00000000000');
 
 -- ----------------------------
 -- Table structure for article_type
@@ -82,4 +84,4 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '大番薯6', '1540396800', 'admin', 'http://luckyme.barry.umdev.cn/static/uploads/20181025/57dffcd7622c24c547bbc5da082fb545.jpg', '90后程序员', '火星球', '530027054@qq.com');
+INSERT INTO `user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '大番薯', '1540396800', 'admin', 'http://luckyme.barry.umdev.cn/static/uploads/20181101/456873592ecd406ee28f74a512c78add.jpg', '90后程序员', '火星球', '530027054@qq.com');

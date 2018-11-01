@@ -82,9 +82,10 @@ class Article extends Base
         if($res){
             $result=$this->article->where('id','=',$rec['id'])->find();
             if($result){
+                $result1= $this->article->where('id','=',$rec['id'])->setInc('looked',1);
                 return $this->successReturn('success',$result);
             }elseif (empty($result)){
-                return $this->successReturn('id不存在',[]);
+                return $this->successReturn('id is not found',[]);
             }else{
                 return $this->errorReturn($this->article->getError());
             }

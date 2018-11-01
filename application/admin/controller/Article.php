@@ -135,7 +135,7 @@ class Article extends Base
             if($result){
                 return $this->successReturn('success',$result);
             }elseif (empty($result)){
-                return $this->successReturn('id不存在',[]);
+                return $this->successReturn('id is not found',[]);
             }else{
                 return $this->errorReturn($this->article->getError());
             }
