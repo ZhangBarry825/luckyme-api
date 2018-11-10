@@ -86,8 +86,13 @@ class Article extends Base
         if($res){
             $map['title|description|content'] = array('like', "%{$rec['key']}%", 'or');
             $result=$this->article->where($map)->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
+            $count=count($this->article->where($map)->select());
             if($result){
-                return $this->successReturn('success',$result);
+                $r=[
+                    'total'=>$count,
+                    'articles'=>$result
+                ];
+                return $this->successReturn('success',$r);
             }else if(empty($result)){
                 return $this->successReturn('success',[]);
             } else{
@@ -102,21 +107,30 @@ class Article extends Base
         $rec=$_GET;
         $res=$this->articleValidate->check($rec,'','listArticle');
         if($res){
+            $count='';
             if(isset($rec['type'])){
                 $result=$this->article->where('type','=',$rec['type'])->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
+                $count=count($this->article->where('type','=',$rec['type'])->select());
             }
             if(isset($rec['status'])){
                 $result=$this->article->where('status','=',$rec['status'])->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
+                $count=count($this->article->where('status','=',$rec['status'])->select());
             }
             if(isset($rec['type']) && isset($rec['status'])){
                 $result=$this->article->where('status','=',$rec['status'])->where('type','=',$rec['type'])->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
+                $count=count($this->article->where('status','=',$rec['status'])->where('type','=',$rec['type'])->select());
             }
             if(!isset($rec['type']) && !isset($rec['status'])){
                 $result=$this->article->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
+                $count=count($this->article->select());
             }
 
             if($result){
-                return $this->successReturn('success',$result);
+                $r=[
+                    'total'=>$count,
+                    'articles'=>$result
+                ];
+                return $this->successReturn('success',$r);
             }else if(empty($result)){
                 return $this->successReturn('success',[]);
             }else{
