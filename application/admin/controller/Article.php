@@ -64,6 +64,12 @@ class Article extends Base
 
     public function deleteArticle(){
         $rec=$_POST;
+        if(isset($_POST['id'])){
+            $rec = $_POST;
+        }else{
+            $request_data = file_get_contents ('php://input');
+            $rec = json_decode ($request_data,true);
+        }
         $res=$this->articleValidate->check($rec,'','deleteArticle');
         if($res){
             $map["id"] = array("in",json_decode($rec['id'],true));
