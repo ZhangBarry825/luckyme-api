@@ -91,7 +91,11 @@ class Article extends Base
         $res=$this->articleValidate->check($rec,'','searchArticle');
         if($res){
             $map['title|description|content'] = array('like', "%{$rec['key']}%", 'or');
-            $result=$this->article->where($map)->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
+            if(isset($rec['type'])){
+                $result=$this->article->where($map)->where('type','=',$rec['type'])->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
+            }else{
+                $result=$this->article->where($map)->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
+            }
             $count=count($this->article->where($map)->select());
             if($result){
                 $r=[
