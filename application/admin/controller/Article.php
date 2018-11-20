@@ -90,7 +90,7 @@ class Article extends Base
         $rec=$_GET;
         $res=$this->articleValidate->check($rec,'','searchArticle');
         if($res){
-            $map['title|description|content'] = array('like', "%{$rec['key']}%", 'or');
+            $map['title|description'] = array('like', "%{$rec['key']}%", 'or');
             if(isset($rec['type'])){
                 $result=$this->article->where($map)->where('type','=',$rec['type'])->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
             }else{
