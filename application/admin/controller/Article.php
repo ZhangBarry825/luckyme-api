@@ -31,6 +31,12 @@ class Article extends Base
 
     public function createArticle(){
         $rec=$_POST;
+        if(isset($_POST['title'])){
+            $rec = $_POST;
+        }else{
+            $request_data = file_get_contents ('php://input');
+            $rec = json_decode ($request_data,true);
+        }
         $res=$this->articleValidate->check($rec,'','createArticle');
         if($res){
             $rec['update_time']=$rec['create_time'];
