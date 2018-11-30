@@ -10,18 +10,21 @@ namespace app\admin\controller;
 
 use app\admin\model\ArticleModel;
 use app\admin\model\ArticleValidate;
+use app\admin\model\DraftModel;
 use think\console\command\make\Model;
 use think\Controller;
 
 class Article extends Base
 {
     protected $article;
+    protected $draft;
     protected $articleValidate;
 
     public function __construct()
     {
         parent::__construct();
         $this->article = new ArticleModel();
+        $this->draft = new DraftModel();
         $this->articleValidate = new ArticleValidate();
     }
 
@@ -38,10 +41,17 @@ class Article extends Base
             $rec = json_decode ($request_data,true);
         }
         $res=$this->articleValidate->check($rec,'','createArticle');
+        if(isset($rec['id'])){
+            $draft_id=$rec['id'];
+            $rec['id']='';
+        }
         if($res){
             $rec['update_time']=$rec['create_time'];
             $result=$this->article->insert($rec);
             if($result){
+                if(isset($draft_id)){
+                    $result1=$this->draft->where('id','=',$draft_id)->delete();
+                }
                 return $this->successReturn();
             }else{
                 return $this->errorReturn($this->article->getError());
@@ -53,6 +63,12 @@ class Article extends Base
 
     public function updateArticle(){
         $rec=$_POST;
+        if(isset($_POST['id'])){
+            $rec = $_POST;
+        }else{
+            $request_data = file_get_contents ('php://input');
+            $rec = json_decode ($request_data,true);
+        }
         $res=$this->articleValidate->check($rec,'','updateArticle');
         if($res){
             $result=$this->article->where('id','=',$rec['id'])->update($rec);

@@ -24,6 +24,12 @@ class ArticleType extends Base
 
     public function createType(){
         $rec=$_POST;
+        if(isset($_POST['name'])){
+            $rec = $_POST;
+        }else{
+            $request_data = file_get_contents ('php://input');
+            $rec = json_decode ($request_data,true);
+        }
         $res=$this->artTypeValidate->check($rec,'','createType');
         if($res){
             $rec['update_time']=$rec['create_time'];
@@ -40,6 +46,12 @@ class ArticleType extends Base
 
     public function updateType(){
         $rec=$_POST;
+        if(isset($_POST['name'])){
+            $rec = $_POST;
+        }else{
+            $request_data = file_get_contents ('php://input');
+            $rec = json_decode ($request_data,true);
+        }
         $res=$this->artTypeValidate->check($rec,'','updateType');
         if($res){
             $result=$this->artType->where('id','=',$rec['id'])->update($rec);
@@ -78,9 +90,18 @@ class ArticleType extends Base
         $rec=$_GET;
         $res=$this->artTypeValidate->check($rec,'','listType');
         if($res){
-            $result=$this->artType->order('update_time desc')->select();
+            if($rec['all']){
+                $result=$this->artType->order('update_time desc')->select();
+            }else{
+                $result=$this->artType->page($rec['page_num'],$rec['page_size'])->order('update_time desc')->select();
+            }
+            $count=count($this->artType->order('update_time desc')->select());
             if($result){
-                return $this->successReturn('success',$result);
+                $r=[
+                    'total'=>$count,
+                    'types'=>$result
+                ];
+                return $this->successReturn('success',$r);
             }else if(empty($result)){
                 return $this->successReturn('success',[]);
             }else{

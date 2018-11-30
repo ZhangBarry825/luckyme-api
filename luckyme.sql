@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50637
 File Encoding         : 65001
 
-Date: 2018-11-01 17:47:26
+Date: 2018-11-30 18:04:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,24 +27,30 @@ CREATE TABLE `article` (
   `description` varchar(255) DEFAULT NULL COMMENT '文章描述',
   `content` text COMMENT '文章内容',
   `type` varchar(255) DEFAULT NULL COMMENT '文章分类',
-  `create_time` int(11) DEFAULT NULL COMMENT '文章创建时间',
-  `update_time` int(11) DEFAULT NULL COMMENT '文章更新时间',
+  `create_time` int(20) DEFAULT NULL COMMENT '文章创建时间',
+  `update_time` int(20) DEFAULT NULL COMMENT '文章更新时间',
   `looked` int(11) unsigned zerofill NOT NULL DEFAULT '00000000000' COMMENT '浏览次数',
+  `is_draft` int(1) unsigned DEFAULT '0' COMMENT '是否为草稿',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES ('1', '文章测试标题1', 'normal', null, '摘要', '内容', '心路历程', '123123', '123123', '00000000000');
-INSERT INTO `article` VALUES ('7', '文章测试标题2', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
-INSERT INTO `article` VALUES ('8', '文章测试标题3', 'normal', null, '摘要', '中国', '心路历程', '123123', null, '00000000000');
-INSERT INTO `article` VALUES ('9', '文章测试标题4', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
-INSERT INTO `article` VALUES ('10', '文章测试标题5', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000002');
-INSERT INTO `article` VALUES ('11', '文章测试标题6', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
-INSERT INTO `article` VALUES ('12', '文章测试标题7', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
-INSERT INTO `article` VALUES ('13', '文章测试标题8', 'normal', null, '摘要', '内容', '心路历程', '123123', null, '00000000000');
-INSERT INTO `article` VALUES ('14', '文章测试标题', 'normal', 'https://www.baidu.com/s?wd=%E4%BB%8A%E6%97%A5%E6%96%B0%E9%B2%9C%E4%BA%8B&tn=SE_PclogoS_8whnvm25&sa=ire_dl_gh_logo&rsv_dl=igh_logo_pcs', '摘要', '内容', '心路历程', '123123', '123123', '00000000000');
+INSERT INTO `article` VALUES ('1', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('2', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('3', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('4', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('5', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('6', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('7', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('8', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('9', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('10', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('11', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('12', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('13', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
+INSERT INTO `article` VALUES ('14', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '0');
 
 -- ----------------------------
 -- Table structure for article_type
@@ -52,16 +58,52 @@ INSERT INTO `article` VALUES ('14', '文章测试标题', 'normal', 'https://www
 DROP TABLE IF EXISTS `article_type`;
 CREATE TABLE `article_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL COMMENT '分类名称',
+  `name` varchar(255) DEFAULT '' COMMENT '中文名称',
   `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
   `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
+  `en_name` varchar(255) DEFAULT NULL COMMENT '英文分类名',
+  `cn_name` varchar(255) DEFAULT NULL COMMENT '中文分类名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of article_type
 -- ----------------------------
-INSERT INTO `article_type` VALUES ('11', '心路历程', '123123', '123123');
+INSERT INTO `article_type` VALUES ('12', '1', '123123', '123123', 'LuckyMe', '心路历程');
+
+-- ----------------------------
+-- Table structure for draft
+-- ----------------------------
+DROP TABLE IF EXISTS `draft`;
+CREATE TABLE `draft` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL COMMENT '文章标题',
+  `status` varchar(255) DEFAULT NULL COMMENT '文章状态',
+  `cover` varchar(255) DEFAULT NULL COMMENT '文章封面',
+  `description` varchar(255) DEFAULT NULL COMMENT '文章描述',
+  `content` text COMMENT '文章内容',
+  `type` varchar(255) DEFAULT NULL COMMENT '文章分类',
+  `create_time` int(20) DEFAULT NULL COMMENT '文章创建时间',
+  `update_time` int(20) DEFAULT NULL COMMENT '文章更新时间',
+  `looked` int(11) unsigned zerofill NOT NULL DEFAULT '00000000000' COMMENT '浏览次数',
+  `is_draft` int(1) unsigned DEFAULT '1' COMMENT '是否为草稿',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of draft
+-- ----------------------------
+INSERT INTO `draft` VALUES ('1', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('2', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('3', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('4', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('5', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('6', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('7', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('8', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('9', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('10', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
+INSERT INTO `draft` VALUES ('11', '草稿', 'normal', '', '草稿', '<p>草稿</p>', '1', '1543568808', '1543568808', '00000000000', '1');
 
 -- ----------------------------
 -- Table structure for user
@@ -84,4 +126,4 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '大番薯', '1540396800', 'admin', 'http://luckyme.barry.umdev.cn/static/uploads/20181101/456873592ecd406ee28f74a512c78add.jpg', '90后程序员', '火星球', '530027054@qq.com');
+INSERT INTO `user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '大番薯', '1540396800', 'admin', '/api/static/uploads/20181127/4eecedb59ffbf24d6b1af13f409dab72.jpg', '90后程序员', '火星球', '530027054@qq.com');
