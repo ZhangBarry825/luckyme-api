@@ -27,8 +27,13 @@ class ArticleType extends Base
         $res=$this->artTypeValidate->check($rec,'','listType');
         if($res){
             $result=$this->artType->order('update_time desc')->select();
+            $count=count($this->artType->order('update_time desc')->select());
             if($result){
-                return $this->successReturn('success',$result);
+                $r=[
+                    'total'=>$count,
+                    'types'=>$result
+                ];
+                return $this->successReturn('success',$r);
             }else if(empty($result)){
                 return $this->successReturn('success',[]);
             }else{
