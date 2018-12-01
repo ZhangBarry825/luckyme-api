@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50637
 File Encoding         : 65001
 
-Date: 2018-12-01 13:10:17
+Date: 2018-12-01 18:02:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -54,7 +54,7 @@ CREATE TABLE `article_type` (
   `en_name` varchar(255) DEFAULT NULL COMMENT '英文分类名',
   `cn_name` varchar(255) DEFAULT NULL COMMENT '中文分类名',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of article_type
@@ -108,4 +108,4 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '大番薯', '1540396800', 'admin', '/api/static/uploads/20181127/4eecedb59ffbf24d6b1af13f409dab72.jpg', '90后程序员', '火星球', '530027054@qq.com');
+INSERT INTO `user` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '大番薯', '1540396800', 'admin', '/api/static/uploads/20181201/a7107f17cc0281b6a4f5e2f3f0bf6df3.jpg', '90后程序员', '火星球', '530027054@qq.com');
