@@ -24,7 +24,7 @@ class ArticleType extends Base
 
     public function createType(){
         $rec=$_POST;
-        if(isset($_POST['name'])){
+        if(isset($_POST['cn_name'])){
             $rec = $_POST;
         }else{
             $request_data = file_get_contents ('php://input');
@@ -32,7 +32,9 @@ class ArticleType extends Base
         }
         $res=$this->artTypeValidate->check($rec,'','createType');
         if($res){
-            $rec['update_time']=$rec['create_time'];
+            $rec['name']=time();
+            $rec['update_time']=time();
+            $rec['create_time']=time();
             $result=$this->artType->insert($rec);
             if($result){
                 return $this->successReturn();
@@ -46,7 +48,7 @@ class ArticleType extends Base
 
     public function updateType(){
         $rec=$_POST;
-        if(isset($_POST['name'])){
+        if(isset($_POST['cn_name'])){
             $rec = $_POST;
         }else{
             $request_data = file_get_contents ('php://input');
@@ -54,6 +56,8 @@ class ArticleType extends Base
         }
         $res=$this->artTypeValidate->check($rec,'','updateType');
         if($res){
+            $rec['name']=time();
+            $rec['update_time']=time();
             $result=$this->artType->where('id','=',$rec['id'])->update($rec);
             if($result){
                 return $this->successReturn();

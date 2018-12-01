@@ -25,8 +25,8 @@ class ArticleTypeValidate extends Validate
         ['all','require','all必须'],
     ];
     protected $scene = [
-        'createType' => ['name','create_time','en_name','cn_name'],
-        'updateType' => ['id','name','update_time','en_name','cn_name'],
+        'createType' => ['create_time','en_name','cn_name'],
+        'updateType' => ['id','en_name','cn_name'],
         'deleteType' => ['id'],
         'listType' => ['page_num','page_size','all'],
     ];
