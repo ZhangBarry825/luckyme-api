@@ -99,7 +99,7 @@ class Article extends Base
             if($result){
                 return $this->successReturn();
             }else if(empty($result)){
-                return $this->errorReturn('id不存在');
+                return $this->errorReturn('id不存在','',503);
             }else{
                 return $this->errorReturn($this->article->getError());
             }

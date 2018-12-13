@@ -8,16 +8,20 @@
 
 namespace app\admin\controller;
 
+use app\admin\model\ArticleModel;
 use app\admin\model\ArticleTypeModel;
 use app\admin\model\ArticleTypeValidate;
 
 class ArticleType extends Base
 {
+    protected $article;
     protected $artType;
     protected $artTypeValidate;
+
     public function __construct()
     {
         parent::__construct();
+        $this->article = new ArticleModel();
         $this->artType = new ArticleTypeModel();
         $this->artTypeValidate = new ArticleTypeValidate();
     }
@@ -82,14 +86,26 @@ class ArticleType extends Base
         }
         $res=$this->artTypeValidate->check($rec,'','deleteType');
         if($res){
-            $map["id"] = array("in",json_decode($rec['id'],true));
-            $result=$this->artType->where($map)->delete();
-            if($result){
-                return $this->successReturn();
-            }else if(empty($result)){
-                return $this->errorReturn('id不存在');
+            $map["id"] = array("in",$rec['id']);
+            $isData=false;
+            for($i=0;$i<count($rec['id']);$i++){
+                $r1=$this->artType->where('id','=',$rec['id'][$i])->field('name')->find();
+                $r2=$this->article->where('type','=',$r1['name'])->select();
+                if($r2){
+                    $isData=true;
+                }
+            }
+            if($isData){
+                return $this->errorReturn('该分类下有文章','',502);
             }else{
-                return $this->errorReturn($this->artType->getError());
+                $result=$this->artType->where($map)->delete();
+                if($result){
+                    return $this->successReturn();
+                }else if(empty($result)){
+                    return $this->errorReturn('id不存在','',503);
+                }else{
+                    return $this->errorReturn($this->artType->getError());
+                }
             }
         }else{
             return $this->errorReturn($this->artTypeValidate->getError());
