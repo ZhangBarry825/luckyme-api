@@ -32,6 +32,8 @@ class ArticleValidate extends Validate
         'deleteArticle'  =>  ['id'],
         'listArticle'  =>['page_num','page_size'],
         'detailArticle'  =>['id'],
-        'searchArticle' =>['key','page_num','page_size']
+        'searchArticle' =>['key','page_num','page_size'],
+        'nextArticle' =>['id'],
+        'preArticle' =>['id']
     ];
 }

@@ -47,6 +47,7 @@ class Draft extends Base
             }else{
                 return $this->errorReturn();
             }
+
         }
         if ($res) {
             $rec['update_time'] = $rec['create_time'];

@@ -111,4 +111,42 @@ class Article extends Base
             return $this->errorReturn($this->articleValidate->getError());
         }
     }
+
+    public function nextArticle(){
+        $rec=$_GET;
+        $res=$this->articleValidate->check($rec,'','nextArticle');
+
+        if($res){
+            $result= $this->article->where("id>".$rec['id'])->order('id asc')->limit('1')->find();
+            if($result){
+                return $this->successReturn('success',$result);
+            }elseif (empty($result)){
+                $result= $this->article->order('id asc')->limit('1')->find();
+                return $this->successReturn('success',$result);
+            }else{
+                return $this->errorReturn($this->article->getError());
+            }
+        }else{
+            return $this->errorReturn($this->articleValidate->getError());
+        }
+    }
+
+    public function preArticle(){
+        $rec=$_GET;
+        $res=$this->articleValidate->check($rec,'','nextArticle');
+
+        if($res){
+            $result= $this->article->where("id<".$rec['id'])->order('id desc')->limit('1')->find();
+            if($result){
+                return $this->successReturn('success',$result);
+            }elseif (empty($result)){
+                $result= $this->article->order('id desc')->limit('1')->find();
+                return $this->successReturn('success',$result);
+            }else{
+                return $this->errorReturn($this->article->getError());
+            }
+        }else{
+            return $this->errorReturn($this->articleValidate->getError());
+        }
+    }
 }
