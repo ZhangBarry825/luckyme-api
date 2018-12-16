@@ -149,4 +149,38 @@ class Article extends Base
             return $this->errorReturn($this->articleValidate->getError());
         }
     }
+
+    public function likeArticle(){
+        $rec=$_GET;
+        $res=$this->articleValidate->check($rec,'','detailArticle');
+        if($res){
+            $result= $this->article->where('id','=',$rec['id'])->setInc('liked');
+            if($result){
+                return $this->successReturn('success',$result);
+            }elseif (empty($result)){
+                return $this->successReturn('id is not found',[]);
+            }else{
+                return $this->errorReturn($this->article->getError());
+            }
+        }else{
+            return $this->errorReturn($this->articleValidate->getError());
+        }
+    }
+
+    public function unlikeArticle(){
+        $rec=$_GET;
+        $res=$this->articleValidate->check($rec,'','detailArticle');
+        if($res){
+            $result= $this->article->where('id','=',$rec['id'])->setDec('liked');
+            if($result){
+                return $this->successReturn('success',$result);
+            }elseif (empty($result)){
+                return $this->successReturn('id is not found',[]);
+            }else{
+                return $this->errorReturn($this->article->getError());
+            }
+        }else{
+            return $this->errorReturn($this->articleValidate->getError());
+        }
+    }
 }
