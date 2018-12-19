@@ -12,7 +12,7 @@ use app\admin\model\ArticleModel;
 use app\admin\model\ArticleTypeModel;
 use app\admin\model\ArticleTypeValidate;
 
-class ArticleType extends Base
+class Articletype extends Base
 {
     protected $article;
     protected $artType;
