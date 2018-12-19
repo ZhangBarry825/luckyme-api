@@ -70,8 +70,8 @@ class Article extends Base
         if($res){
             $count='';
             if(isset($rec['type'])){
-                $result=$this->article->where('type','=',$rec['type'])->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
-                $count=count($this->article->where('type','=',$rec['type'])->select());
+                $result=$this->article->where('type','=',$rec['type'])->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->where('status','=','normal')->select();
+                $count=count($this->article->where('type','=',$rec['type'])->where('status','=','normal')->select());
             }
             if(isset($rec['status'])){
                 $result=$this->article->where('status','=',$rec['status'])->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
@@ -82,8 +82,8 @@ class Article extends Base
                 $count=count($this->article->where('status','=',$rec['status'])->where('type','=',$rec['type'])->select());
             }
             if(!isset($rec['type']) && !isset($rec['status'])){
-                $result=$this->article->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->select();
-                $count=count($this->article->select());
+                $result=$this->article->page($rec['page_num'],$rec['page_size'])->field('content',true)->order('update_time desc')->where('status','=','normal')->select();
+                $count=count($this->article->where('status','=','normal')->select());
             }
 
             if($result){
